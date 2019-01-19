@@ -4,7 +4,8 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test:unit": "./node_modules/.bin/mocha ./tests/*",
+    "lint": "./node_modules/.bin/eslint . --max-warnings=0"
   },
   "repository": {
     "type": "git",
@@ -15,5 +16,18 @@
   "bugs": {
     "url": "https://github.com/gabrielabud/hackernews/issues"
   },
-  "homepage": "https://github.com/gabrielabud/hackernews#readme"
+  "homepage": "https://github.com/gabrielabud/hackernews#readme",
+  "devDependencies": {
+    "chai": "^4.2.0",
+    "eslint": "^5.8.0",
+    "eslint-config-airbnb-base": "^13.1.0",
+    "eslint-plugin-import": "^2.14.0",
+    "mocha": "^5.2.0",
+    "nock": "^10.0.6"
+  },
+  "dependencies": {
+    "minimist": "^1.2.0",
+    "request": "^2.88.0",
+    "request-promise": "^4.2.2"
+  }
 }
