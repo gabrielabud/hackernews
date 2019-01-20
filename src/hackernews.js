@@ -1,5 +1,6 @@
 const rp = require('request-promise');
-const cheerio = require('cheerio')
+const cheerio = require('cheerio');
+
 async function getHTML(url) {
   try {
     const response = await rp(url);
@@ -13,14 +14,30 @@ async function getHTML(url) {
 async function parseHTML(html) {
   try {
     const $ = cheerio.load(html);
-    console.log('loading', $);
-    const className = 'storylink';
-    const results = $('a[class*="storylink"]');
-    console.log('resultsss', results);
-    console.log('resultsss', results.length);
-    results.map((i, elem) => {
-      console.log(i, $(elem).text());
-      return 'test';
+    const allStorylinkClasses = $('a[class*="storylink"]');
+    const results = [];
+    allStorylinkClasses.each((i, elem) => {
+      const title = $(elem).text();
+      const uri = $(elem).attr('href');
+      const subtextHtmlClass = $(elem)
+        .parent()
+        .parent()
+        .next()
+        .children('.subtext')
+        .children();
+      const points = $(subtextHtmlClass).eq(0).text();
+      const author = $(subtextHtmlClass).eq(1).text();
+      const comments = $(subtextHtmlClass).eq(5).text();
+      const rank = $(elem).parent().parent().text();
+      const hackernewsObj = {
+        title,
+        uri,
+        author,
+        points: parseInt(points, 10),
+        comments: parseInt(comments, 10),
+        rank: parseInt(rank, 10)
+      };
+      results.push(hackernewsObj);
     });
     return results;
   } catch (err) {
@@ -28,16 +45,15 @@ async function parseHTML(html) {
     throw err;
   }
 }
+// async function outputHTML(url) {
+//   // console.log(await getHTML(url));
+//   const responses = await getHTML(url);
+//   console.log('respones', responses);
+//   parseHTML(responses);
+// }
 
-
-async function outputHTML(url) {
-  // console.log(await getHTML(url));
-  const responses = await getHTML(url);
-  parseHTML(responses);
-}
-
-// const urls = argv.url;
-outputHTML('https://news.ycombinator.com/');
+// // const urls = argv.url;
+// outputHTML('https://news.ycombinator.com/');
 module.exports = {
   getHTML,
   parseHTML
