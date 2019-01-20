@@ -6,7 +6,7 @@ module.exports = {
   "rules": {
     "comma-dangle": [
       "error",
-      "multiline"
+      "only-multiline"
     ],
     "no-underscore-dangle" : "off",
     "arrow-body-style": "off",
