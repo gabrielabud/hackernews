@@ -1,5 +1,7 @@
 const rp = require('request-promise');
 const cheerio = require('cheerio');
+const validUrl = require('valid-url');
+const { validateString, validateNumber } = require('./inputValidation');
 
 async function getHTML(url) {
   try {
@@ -25,17 +27,17 @@ async function parseHTML(html) {
         .next()
         .children('.subtext')
         .children();
-      const points = $(subtextHtmlClass).eq(0).text();
+      const points = parseInt($(subtextHtmlClass).eq(0).text(), 10);
       const author = $(subtextHtmlClass).eq(1).text();
-      const comments = $(subtextHtmlClass).eq(5).text();
-      const rank = $(elem).parent().parent().text();
+      const comments = parseInt($(subtextHtmlClass).eq(5).text(), 10);
+      const rank = parseInt($(elem).parent().parent().text(), 10);
       const hackernewsObj = {
-        title,
-        uri,
-        author,
-        points: parseInt(points, 10),
-        comments: parseInt(comments, 10),
-        rank: parseInt(rank, 10)
+        title: validateString(title) ? title : '',
+        uri: validUrl.isUri(uri) ? uri : '',
+        author: validateString(author) ? title : '',
+        points: validateNumber(points) ? points : 0,
+        comments: validateNumber(comments) ? comments : 0,
+        rank: validateNumber(rank) ? rank : 0,
       };
       results.push(hackernewsObj);
     });
@@ -45,15 +47,13 @@ async function parseHTML(html) {
     throw err;
   }
 }
-// async function outputHTML(url) {
-//   // console.log(await getHTML(url));
-//   const responses = await getHTML(url);
-//   console.log('respones', responses);
-//   parseHTML(responses);
-// }
+async function outputHTML(url) {
+  const responses = await getHTML(url);
+  console.log(parseHTML(responses));
+}
 
-// // const urls = argv.url;
-// outputHTML('https://news.ycombinator.com/');
+// const urls = argv.url;
+outputHTML('https://news.ycombinator.com/');
 module.exports = {
   getHTML,
   parseHTML
