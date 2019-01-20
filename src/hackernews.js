@@ -3,24 +3,32 @@ const cheerio = require('cheerio');
 const validUrl = require('valid-url');
 const { validateString, validateNumber } = require('./inputValidation');
 
+// make HTTP request to hackernews website, returning a promise of the HTML output
 async function getHTML(url) {
   try {
     const response = await rp(url);
     return response;
   } catch (err) {
-    console.log('error in getting the html');
+    console.log('#getHTML error twhile making the http request to hackernews');
     throw err;
   }
 }
 
+// parse HTML using cheerio package to load the HTML and select DOM elements
 async function parseHTML(html) {
   try {
     const $ = cheerio.load(html);
+    // select each element from the DOM which class equal "storylink"
+    // all the other elements of the DOM will be manipulated relative
+    // to this selected class
     const allStorylinkClasses = $('a[class*="storylink"]');
     const results = [];
     allStorylinkClasses.each((i, elem) => {
       const title = $(elem).text();
       const uri = $(elem).attr('href');
+      // finding the class="subtext" relative to the class="storylink"
+      // the "subtext" class element contains information about
+      // points, author and comments
       const subtextHtmlClass = $(elem)
         .parent()
         .parent()
@@ -39,6 +47,7 @@ async function parseHTML(html) {
         comments: validateNumber(comments) ? comments : 0,
         rank: validateNumber(rank) ? rank : 0,
       };
+      // constructing an array of posts objects
       results.push(hackernewsObj);
     });
     return results;
