@@ -34,7 +34,7 @@ async function parseHTML(html) {
       const hackernewsObj = {
         title: validateString(title) ? title : '',
         uri: validUrl.isUri(uri) ? uri : '',
-        author: validateString(author) ? title : '',
+        author: validateString(author) ? author : '',
         points: validateNumber(points) ? points : 0,
         comments: validateNumber(comments) ? comments : 0,
         rank: validateNumber(rank) ? rank : 0,
@@ -47,13 +47,7 @@ async function parseHTML(html) {
     throw err;
   }
 }
-async function outputHTML(url) {
-  const responses = await getHTML(url);
-  console.log(parseHTML(responses));
-}
 
-// const urls = argv.url;
-outputHTML('https://news.ycombinator.com/');
 module.exports = {
   getHTML,
   parseHTML

@@ -4,6 +4,7 @@
   "description": "",
   "main": "index.js",
   "scripts": {
+    "hackernews": "node index.js --posts",
     "test:unit": "./node_modules/.bin/mocha ./tests/*",
     "lint": "./node_modules/.bin/eslint . --max-warnings=0"
   },
