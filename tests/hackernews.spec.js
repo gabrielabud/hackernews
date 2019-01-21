@@ -28,7 +28,7 @@ describe('#getHTML', () => {
 });
 
 describe('#parseHTML', () => {
-  it('should parse HTML and return an array of hackernews object', async () => {
+  it('should parse HTML and return an array of hackernews posts objects', async () => {
     try {
       const results = await parseHTML(htmlSample);
       const resultsArray = [

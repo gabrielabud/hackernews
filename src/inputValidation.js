@@ -1,7 +1,8 @@
-// validate strings which are non empty strings not longer than 256 characters
+// validate strings which are non empty & not longer than 256 characters
+const MAX_LENGTH = 256;
 const validateString = (str) => {
   const n = str.length;
-  if (n === 0 || n > 256) {
+  if (n === 0 || n > MAX_LENGTH) {
     return false;
   }
   return true;
@@ -9,11 +10,7 @@ const validateString = (str) => {
 
 // helper for validating whether the points, comments and rank are integers >= 0
 const validateNumber = (nr) => {
-  const parsedNr = parseInt(nr, 10);
-  if (Number.isNaN(parsedNr) || parsedNr < 0) {
-    return false;
-  }
-  return true;
+  return nr >= 0;
 };
 
 module.exports = {

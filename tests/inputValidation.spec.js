@@ -8,6 +8,10 @@ describe('#validateNumber', () => {
     const valid = validateNumber(-10);
     valid.should.eql(false);
   });
+  it('should return false for NaN', () => {
+    const valid = validateNumber(NaN);
+    valid.should.eql(false);
+  });
   it('should return true for positive integer', () => {
     const valid = validateNumber(10);
     valid.should.eql(true);
