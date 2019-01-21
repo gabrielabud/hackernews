@@ -5,7 +5,7 @@ const URL = 'https://news.ycombinator.com/';
 const POSTS_PER_PAGE = 30;
 
 // validate command line -posts n argument
-// where n must a positive integer <= 100.
+// where n must be a positive integer <= 100.
 function validateArgument(n) {
   return (n < 0 || n > 100 || !Number.isInteger(n));
 }
@@ -22,7 +22,7 @@ async function hackernews() {
     );
     return '';
   }
-  // determine how many Hacker News pages to pagesToScrape
+  // determine how many Hacker News pages to to scrape
   // currently hackernews displays 30 posts per page
   const pagesToScrape = Math.trunc(posts / POSTS_PER_PAGE) + 1;
   let n = 1;
