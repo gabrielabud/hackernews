@@ -4,6 +4,7 @@ command line application that outputs the top posts from [Hacker News](https://n
 ## Instructions to run the app
 - $ git clone https://github.com/gabrielabud/hackernews.git
 - $ cd hackernews
+- $ npm install
 - $ npm run hackernews --posts n (e.g. npm run hackernews --posts 5 to get top 5 posts)
 - $ npm run test:unit
 
