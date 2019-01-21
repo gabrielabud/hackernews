@@ -13,8 +13,8 @@ command line application that outputs the top posts from [Hacker News](https://n
 - $ docker build -t hackernews .
 - $ docker images (see the image that has just been built)
 - $ docker run -it hackernews bash (run the container)
-- $ npm run hackernews --posts n 
-- $ npm run test:unit
+  - $ npm run hackernews --posts n 
+  - $ npm run test:unit
 
 ## Packages used
 - [request-promise](https://www.npmjs.com/package/request-promise) HTTP request which has support for Promise
