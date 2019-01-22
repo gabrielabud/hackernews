@@ -4,14 +4,14 @@ const { getHTML, parseHTML } = require('./src/hackernews');
 const URL = 'https://news.ycombinator.com/';
 const POSTS_PER_PAGE = 30;
 
-// validate command line -posts n argument
+// validate command line --posts n argument
 // where n must be a positive integer <= 100.
 function validateArgument(n) {
   return (n < 0 || n > 100 || !Number.isInteger(n));
 }
 
 async function hackernews() {
-  // destructure the value of 'n' when running hackernews -posts n from CLI
+  // destructuring from argv the value of 'n' when running hackernews -posts n from CLI
   const { posts } = argv;
   if (validateArgument(posts)) {
     console.log(
@@ -22,7 +22,7 @@ async function hackernews() {
     );
     return '';
   }
-  // determine how many Hacker News pages to to scrape
+  // determine how many Hacker News pages to scrape
   // currently hackernews displays 30 posts per page
   const pagesToScrape = Math.trunc(posts / POSTS_PER_PAGE) + 1;
   let n = 1;
