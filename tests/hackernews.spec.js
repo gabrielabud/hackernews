@@ -28,31 +28,27 @@ describe('#getHTML', () => {
 });
 
 describe('#parseHTML', () => {
-  it('should parse HTML and return an array of hackernews posts objects', async () => {
-    try {
-      const results = await parseHTML(htmlSample);
-      const resultsArray = [
-        {
-          title: 'Students learn from people they love',
-          uri: 'https://www.nytimes.com/2019/01/17/opinion/learning-emotion-education.html',
-          author: 'kareemm',
-          points: 49,
-          comments: 6,
-          rank: 1
-        },
-        {
-          title: 'MySQL client allowsMySQL server to request any local file',
-          uri:
-          'https://gwillem.gitlab.io/2019/01/20/sites-hacked-via-mysql-protocal-flaw/',
-          author: 'cnst',
-          points: 5,
-          comments: 1,
-          rank: 2
-        }
-      ];
-      results.should.eql(resultsArray);
-    } catch (err) {
-      throw new Error();
-    }
+  it('should parse HTML and return an array of hackernews posts objects', () => {
+    const results = parseHTML(htmlSample);
+    const resultsArray = [
+      {
+        title: 'Students learn from people they love',
+        uri: 'https://www.nytimes.com/2019/01/17/opinion/learning-emotion-education.html',
+        author: 'kareemm',
+        points: 49,
+        comments: 6,
+        rank: 1
+      },
+      {
+        title: 'MySQL client allowsMySQL server to request any local file',
+        uri:
+        'https://gwillem.gitlab.io/2019/01/20/sites-hacked-via-mysql-protocal-flaw/',
+        author: 'cnst',
+        points: 5,
+        comments: 1,
+        rank: 2
+      }
+    ];
+    results.should.eql(resultsArray);
   });
 });

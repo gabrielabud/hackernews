@@ -34,12 +34,11 @@ async function hackernews() {
     n += 1;
   }
   const htmlResponses = await Promise.all(htmlPromises);
-  const parsedHTMLPromises = [];
+  const parsedHTML = [];
   // parse the HTML by selecting DOM elements using cheerio
   htmlResponses.forEach((html) => {
-    parsedHTMLPromises.push(parseHTML(html));
+    parsedHTML.push(parseHTML(html));
   });
-  const parsedHTML = await Promise.all(parsedHTMLPromises);
   // construct the full array of posts' objects
   const allPosts = parsedHTML.reduce((acc, val) => acc.concat(val), []);
   const results = allPosts.slice(0, posts);
